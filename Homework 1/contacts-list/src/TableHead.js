@@ -6,7 +6,7 @@ export default class TableHead extends Component {
         <thead>
             <tr>
                 {
-                Object.keys(this.props.headItems).map((headItem, index) => 
+                 this.props.headItems.map((headItem, index) => 
                  <th key={index}>{headItem}</th>
                 )}
             </tr>

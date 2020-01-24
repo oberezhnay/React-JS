@@ -5,9 +5,10 @@ export default class Row extends Component {
     render() {
         return (
             <tr>
-                {Object.values(this.props.user).map((el, i) => 
-                    <td key={i}>{el}</td>
-                 )}
+                <td>{this.props.user.name}</td>
+                <td>{this.props.user.surname}</td>
+                <td>{this.props.user.age}</td>
+                <td>{this.props.user.phone}</td>           
             </tr>
         )
     }

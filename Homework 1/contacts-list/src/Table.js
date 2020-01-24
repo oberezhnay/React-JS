@@ -6,7 +6,7 @@ export default class Table extends Component {
     render() {
         return (
             <table>
-                <TableHead headItems={this.props.contacts[0]} />
+                <TableHead headItems={this.props.headers} />
                 <TableBody contacts={this.props.contacts} />
             </table>
         )

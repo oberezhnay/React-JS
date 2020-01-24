@@ -74,11 +74,12 @@ export default class App extends Component {
         "surname": "DuBuque",
         "phone": "024-648-3804",
       }
-    ]
+    ],
+    headers: ['Имя', 'Фамилия', 'Возраст', 'Телефон']
   };
   render() {
     return (
-        <Table contacts={this.state.contacts}/>
+        <Table contacts={this.state.contacts} headers={this.state.headers}/>
     )
   }
 }
