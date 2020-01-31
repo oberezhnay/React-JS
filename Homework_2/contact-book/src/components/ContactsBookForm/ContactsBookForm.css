@@ -1,0 +1,16 @@
+.addcontacts-form input{
+    margin: 10px; 
+}
+
+.addcontacts-form button{
+    margin: 40px; 
+    
+}
+
+.vizible-true{
+display: block;
+}
+
+.vizible-false{
+    display: none;
+}
