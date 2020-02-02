@@ -84,12 +84,7 @@ export default class ContactsBook extends Component {
             age: '',
             phone: ''
         },
-        pickedContact: {
-          name: '',
-          surname: '',
-          age: '',
-          phone: ''
-      },
+      showBtnAdd: false
     };
 
     deleteContact = id => {
@@ -106,7 +101,10 @@ export default class ContactsBook extends Component {
         return item.id === id;
           })
           this.setState({
-              pickedContact: newList
+              showBtnAdd: true,
+              newContact: {
+                ...newList
+            }
           });
   };
 
@@ -128,9 +126,20 @@ export default class ContactsBook extends Component {
                     ...newContact
                 }
             ],
-            newContact: {name: '', surname:'', age: '', phone: ''} 
+            newContact: {name: '', surname:'', age: '', phone: ''},
+            showBtnAdd: false
         })
     } 
+
+    onBtnSave = editedContact => {
+      const newList =this.state.list.map(item =>
+        item.id === editedContact.id ? editedContact:item)
+      this.setState({
+          list: newList,
+          newContact: {name: '', surname:'', age: '', phone: ''},
+          showBtnAdd: false 
+      })
+  }
 
     render() {
         return (
@@ -143,11 +152,11 @@ export default class ContactsBook extends Component {
                 onPick = {this.pickContact}
                 />
             <ContactsBookForm
-                pickedContact={this.state.pickedContact}
                 contact={this.state.newContact}
                 onChange={this.onFormChange}
                 onSubmit={this.onFormSubmit}
-                showBtnAdd={this.showBtnAdd}
+                onSave={this.onBtnSave}
+                showBtnAdd={this.state.showBtnAdd}
             />
             </div>
             </>

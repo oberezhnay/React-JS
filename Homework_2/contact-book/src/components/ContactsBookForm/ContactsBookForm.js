@@ -19,7 +19,11 @@ export default class ContactsBookForm extends Component {
         e.preventDefault();
         this.props.onSubmit(this.props.contact)
     };
-  
+
+    onBtnSave = e => {
+        this.props.onSave(this.props.contact)
+    };
+    
     render() {
         return (
             <form onSubmit={this.onFormSubmit} className='addcontacts-form'>
@@ -28,7 +32,7 @@ export default class ContactsBookForm extends Component {
                     type='text' 
                     name='name'
                     placeholder='Name'
-                    value={this.props.pickedContact.name||this.props.contact.name} 
+                    value={this.props.contact.name} 
                     onChange={this.onInputChange}/>
                </div>
                 <div>
@@ -36,7 +40,7 @@ export default class ContactsBookForm extends Component {
                     type='text' 
                     name='surname'
                     placeholder='Surname'
-                    value={this.props.pickedContact.surname||this.props.contact.surname} 
+                    value={this.props.contact.surname} 
                     onChange={this.onInputChange}/>
                 </div>
                 <div>
@@ -44,7 +48,7 @@ export default class ContactsBookForm extends Component {
                     type='number' 
                     name='age'
                     placeholder='Age'
-                    value={this.props.pickedContact.age||this.props.contact.age} 
+                    value={this.props.contact.age} 
                     onChange={this.onInputChange}/>
                 </div>
                 <div>
@@ -52,10 +56,13 @@ export default class ContactsBookForm extends Component {
                     type='text' 
                     name='phone'
                     placeholder='Phone'
-                    value={this.props.pickedContact.phone||this.props.contact.phone} 
+                    value={this.props.contact.phone} 
                     onChange={this.onInputChange}/> 
                  </div>
-                <button>Save Contact</button>
+                <button>Add New Contact</button>
+                {this.props.showBtnAdd ?
+                  <button onClick={this.onBtnSave}>Save Contact</button>
+                :''}
             </form>
         )
     }

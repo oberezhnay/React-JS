@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import propTypes from '../propTypes'
 import './ContactsListItem.css'
-
 export default class ContactsListItem extends Component {
     onDeleteBtnClick = (e)=>{  
         e.stopPropagation();
@@ -15,7 +14,7 @@ export default class ContactsListItem extends Component {
         const { item }=this.props
         return (
         <tr >
-            <td className={`contactslist-item ${item.isPicked ? 'picked':''}` } onClick={this.onItemRowClick}>
+            <td onClick={this.onItemRowClick}>
                 {item.name} {item.surname}
                 <button 
                     className='contactslist-itemBtn' 
