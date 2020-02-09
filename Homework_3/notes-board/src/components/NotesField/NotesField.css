@@ -1,0 +1,19 @@
+.field{
+  text-align: center;
+  width: 100%;
+  height: 920px;
+  background-color: #cecbda;
+}
+
+.btnNewNote{
+  height: 40px;
+  margin: 10px;
+  background-color: #5d4b63;
+  color: rgba(245, 245, 245, 0.796);
+  border-radius: 5px;
+
+
+
+
+
+}

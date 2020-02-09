@@ -1,0 +1,13 @@
+textarea{
+  min-height: 130px,;
+  width: 120px;
+  color: #5d4b63
+}
+
+.btnDelete{
+float: right;
+margin: 5px;
+font-weight: bold;
+border: transparent;
+background-color: transparent;
+}
