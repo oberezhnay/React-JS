@@ -70,7 +70,7 @@ function App() {
 
 return <> 
           <header className='todo-header'>ToDo List</header>
-          <button className='newtodo-btn'>Add New ToDo</button>
+          {/* <button className='newtodo-btn'>Add New ToDo</button> */}
           {/* <a href="#modal" className="btn">Add New ToDo</a> */}
           <TodoModal 
             todo = {newTodo} 

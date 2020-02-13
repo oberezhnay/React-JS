@@ -15,7 +15,33 @@ function TodoModal({ todo, onChange, onSave }) {
   }
 
   return (
-<form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
+<>
+ <a href="#popup" className="btn">Add new ToDo</a>
+ <div id="popup" className="popup">
+  <a href="#" className="close">&times;</a>
+  <form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
+    <div>
+      <input 
+        type='text' 
+        name='title'
+        placeholder='...'
+        value={todo.title} 
+        onChange={onValueChange}/>
+     </div>
+     <button>Save</button>
+   </form>
+ </div>
+ <a href="#" className="close-popup"></a>
+</>
+  )
+}
+
+export default TodoModal
+
+
+/**
+ * 
+ <form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
                 <div>
                 <button className='close-btn'>&times;</button>
                 <input 
@@ -29,9 +55,6 @@ function TodoModal({ todo, onChange, onSave }) {
                 
                 {/* {this.props.showBtnAdd ?
                   <button onClick={this.onBtnSave}>Save Todo</button>
-                :''} */}
-            </form>
-  )
-}
-
-export default TodoModal
+                :''} */
+                //</form>
+ 
