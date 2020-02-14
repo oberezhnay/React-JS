@@ -10,9 +10,9 @@ function App() {
     title: '',
     isDone: false
   });
-  // const [show, setModal] = useState([
-
-  // ]);
+  const [show, setModal] = useState({
+    showModal: false
+  });
 
   useEffect(() => {
    api
@@ -60,6 +60,9 @@ function App() {
       setTodos (
         todos.map(item => (item.id === resp.data.id ? resp.data : item))
         );
+       setModal({
+         showModal: !show
+         })
       });
   }
 
@@ -68,14 +71,22 @@ function App() {
     setNewTodo(todo)
   }
 
+  function onBtnModal(){
+    debugger
+    setModal({
+      showModal: !show
+      })
+  }
+
 return <> 
           <header className='todo-header'>ToDo List</header>
-          {/* <button className='newtodo-btn'>Add New ToDo</button> */}
-          {/* <a href="#modal" className="btn">Add New ToDo</a> */}
+          <button className='newtodo-btn' onClick={onBtnModal}>Add New ToDo</button>
           <TodoModal 
             todo = {newTodo} 
             onChange={onNewTodoChange}
-            onSave={onNewTodoSave}/>
+            onSave={onNewTodoSave}
+            onUpdate={updateTodo}
+            showModal={show}/>
           <TodoList 
             todos={todos}
             onDelete={onTodoDelete}
