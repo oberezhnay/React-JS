@@ -35,8 +35,14 @@ function App() {
   function onNewTodoSave(todo){
     if (todo.id){
       updateTodo(todo);
+      setModal({
+        showModal: !show.showModal
+        })
     } else {
       createTodo(todo);
+      setModal({
+        showModal: !show.showModal
+        })
     }
   }
 
@@ -60,21 +66,20 @@ function App() {
       setTodos (
         todos.map(item => (item.id === resp.data.id ? resp.data : item))
         );
-       setModal({
-         showModal: !show
-         })
       });
   }
 
   function onTodoSelect(id){
     const todo = todos.find(item => item.id === id)
     setNewTodo(todo)
+    setModal({
+      showModal: true
+      })
   }
 
   function onBtnModal(){
-    debugger
     setModal({
-      showModal: !show
+      showModal: !show.showModal
       })
   }
 
@@ -85,8 +90,8 @@ return <>
             todo = {newTodo} 
             onChange={onNewTodoChange}
             onSave={onNewTodoSave}
-            onUpdate={updateTodo}
-            showModal={show}/>
+            showModal={show.showModal}
+            onModal={onBtnModal}/>
           <TodoList 
             todos={todos}
             onDelete={onTodoDelete}

@@ -3,15 +3,12 @@ import './TodoListItem.css'
 
 function TodoListItem({todo, onDelete, onSelect, onToggle}) {
 
-//   onItemRowClick = () => {
-//     this.props.onToggle(this.props.item.id);
-// }
-
   return (
-    <li onClick={() => onSelect(todo.id)} className={`todolist-item ${todo.isDone ? 'done':''}`}>
+    <li>
+      <input type="checkbox" checked={todo.isDone} onChange={() => onToggle(todo.id)} />
       {todo.title} {' '}
-      <span onClick={() => onToggle(todo.id)}>x</span>
-      <span onClick={() => onDelete(todo.id)}>x</span>
+      <span onClick={() => onSelect(todo.id)}> &#10000;</span>
+      <span onClick={() => onDelete(todo.id)}>	&#128465;</span>
     </li>
   )
 }

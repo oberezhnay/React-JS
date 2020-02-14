@@ -1,7 +1,7 @@
 import React from 'react'
 import './TodoModal.css'
 
-function TodoModal({ todo, onChange, onSave, onUpdate, showModal }) {
+function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
 
   function onValueChange(e){
     onChange({
@@ -14,68 +14,30 @@ function TodoModal({ todo, onChange, onSave, onUpdate, showModal }) {
     onSave(todo)
   }
 
+  function onFormCansel(e){
+    e.preventDefault();
+    onModal()
+  }
   return (
-<>
-{showModal ?
-<form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
-                <div>
-                <button className='close-btn'>&times;</button>
-                <input 
-                    type='text' 
-                    name='title'
-                    placeholder='...'
-                    value={todo.title} 
-                    onChange={onValueChange}/>
-                </div>
-                <button>Save</button>
-                
-                 {/* {this.props.showBtnAdd ?
-                  <button onClick={this.onBtnSave}>Save Todo</button>
-                :''} */}
-                </form> :''}
-</>
+    <>
+    {showModal ? <div><div className='form-container'></div>
+      <form 
+        onSubmit={onFormSubmit} 
+        className='addtodo-form'>
+          <h3>ToDo: </h3>
+          <div>
+            <input 
+              type='text' 
+              name='title'
+              placeholder='...'
+              value={todo.title} 
+              onChange={onValueChange}/>
+          </div>
+          <button>Save</button>
+          <button onClick={onFormCansel}>Cansel</button>
+      </form></div> :''}
+    </>
   )
 }
 
 export default TodoModal
-
-
-/**
- * 
- <form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
-                <div>
-                <button className='close-btn'>&times;</button>
-                <input 
-                    type='text' 
-                    name='title'
-                    placeholder='...'
-                    value={todo.title} 
-                    onChange={onValueChange}/>
-                </div>
-                <button>Save</button>
-                
-                {/* {this.props.showBtnAdd ?
-                  <button onClick={this.onBtnSave}>Save Todo</button>
-                :''} */
-                //</form>
- 
-
-
-                /**
-                  <a href="#popup" className="btn">Add new ToDo</a>
- <div id="popup" className="popup">
-  <a href="#" className="close">&times;</a>
-  <form onSubmit={onFormSubmit} className='addtodo-form' id='modal'>
-    <div>
-      <input 
-        type='text' 
-        name='title'
-        placeholder='...'
-        value={todo.title} 
-        onChange={onValueChange}/>
-     </div>
-     <button>Save</button>
-   </form>
- </div>
- <a href="#" className="close-popup"></a>
-                 */
