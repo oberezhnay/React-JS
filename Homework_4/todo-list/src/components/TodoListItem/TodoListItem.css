@@ -1,13 +1,3 @@
-li input[type=checkbox]{
-  background-color: rgb(100, 193, 34);
-  color: rgb(100, 193, 34);
-  font-size: 15px;
-}
-
-input{
-  color:firebrick;
-}
-
 li{
   display: block;
   margin: 0 auto;
@@ -22,3 +12,8 @@ li{
 span{
   margin-left: 20px;
 }
+
+.hidden-box:checked + .check--label {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.6);
+  }

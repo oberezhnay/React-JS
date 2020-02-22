@@ -10,7 +10,7 @@ function App() {
     title: '',
     isDone: false
   });
-  const [show, setModal] = useState({
+  const [visibility, setVisibility] = useState({
     showModal: false
   });
 
@@ -33,28 +33,17 @@ function App() {
   }
 
   function onNewTodoSave(todo){
-    if (todo.id){
-      updateTodo(todo);
-      setModal({
-        showModal: !show.showModal
-        })
-    } else {
-      createTodo(todo);
-      setModal({
-        showModal: !show.showModal
-        })
-    }
+    todo.id ? updateTodo(todo):createTodo(todo);
+    setVisibility({
+      showModal: !visibility.showModal
+      });
   }
 
   function toggleTodo(id){
     const todo = todos.find(item => item.id === id)
     todo.isDone=!todo.isDone
 
-    api.put(todo.id, todo).then(resp => {
-      setTodos (
-        todos.map(item => (item.id === resp.data.id ? resp.data : item))
-        );
-      });
+    updateTodo(todo)
 };
 
   function createTodo(todo){
@@ -72,14 +61,14 @@ function App() {
   function onTodoSelect(id){
     const todo = todos.find(item => item.id === id)
     setNewTodo(todo)
-    setModal({
+    setVisibility({
       showModal: true
       })
   }
 
   function onBtnModal(){
-    setModal({
-      showModal: !show.showModal
+    setVisibility({
+      showModal: !visibility.showModal
       })
   }
 
@@ -90,7 +79,7 @@ return <>
             todo = {newTodo} 
             onChange={onNewTodoChange}
             onSave={onNewTodoSave}
-            showModal={show.showModal}
+            showModal={visibility.showModal}
             onModal={onBtnModal}/>
           <TodoList 
             todos={todos}
