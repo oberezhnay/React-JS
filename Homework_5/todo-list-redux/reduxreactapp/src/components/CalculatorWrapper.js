@@ -5,8 +5,9 @@ import { increment, onNewTodoSave, onTodoDelete, onTodoUpdate, onTodoToggle, onT
 
 function mapStateToProps(state) {
     return {
-        value: state.value,
-        list: state.list
+        initialTodoState: state,
+        newTodo: state,
+        modalVisibility: state
     };
 }
 
@@ -17,14 +18,12 @@ function mapStateToProps(state) {
 // }
 
 const mapDispathToProps = {
-    inc: increment,
-    // add: add,
     save: onNewTodoSave,
     del: onTodoDelete,
-    update: onTodoUpdate,
+    edit: onTodoUpdate,
     toggle: onTodoToggle,
     select: onTodoSelect,
-    setVisibility: setVisibility
+    // setVisibility: setVisibility
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Calculator);
