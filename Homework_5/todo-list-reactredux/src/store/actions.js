@@ -23,11 +23,6 @@ export function onNewTodoSave(changes) {
     return { type: SAVE_ACTION, payload: changes };
 }
 
-export const VISIBILITIE_ACTION = 'VISIBILITIE_MODAL';
-export function setVisibility() {
-    return { type: VISIBILITIE_ACTION};
-}
-
 export const OPEN_MODAL_ACTION =  'OPEN_MODAL_MODAL';
 export function openModal(id) {
     return { type: OPEN_MODAL_ACTION, payload: id  };

@@ -5,8 +5,7 @@ import {
   SAVE_ACTION,
   SELECT_ACTION,
   OPEN_MODAL_ACTION,
-  CLOSE_MODAL_ACTION,
-  VISIBILITIE_ACTION
+  CLOSE_MODAL_ACTION
 } from './actions';
 
 const initialState= {
@@ -104,11 +103,6 @@ export default function (state = initialState, action) {
             newTodo: {title:'', isDone: false}, 
             modalVisibility: false 
           };       
-      case VISIBILITIE_ACTION:
-        return { 
-          ...state, 
-          modalVisibility: !state.modalVisibility 
-        };
       default:
           return state;
   }
