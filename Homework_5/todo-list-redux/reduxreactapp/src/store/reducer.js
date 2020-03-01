@@ -1,14 +1,13 @@
 import {
-    // INCREMENT_ACTION,
     ADD_ACTION,
     DELETE_ACTION,
     TOGGLE_ACTION,
     EDIT_ACTION,
     SELECT_ACTION,
-    // VISIBILITIE_ACTION
 } from './actions';
 
-const initialTodoState = [{
+const initialTodoState= {s
+    todos: [{
         "id": "1",
         "title": "Task #1",
         "isDone": false
@@ -28,7 +27,9 @@ const initialTodoState = [{
         "id": "27",
         "title": "task 4",
         "isDone": false
-    }];
+    }],
+    modalVisibility: false
+};
 // const newTodo = {
 //     title: '',
 //     isDone: false
@@ -44,7 +45,6 @@ export default function (state = initialTodoState, action) {
         case TOGGLE_ACTION:
             return state.find(todo => todo.id === action.payload) ? todo : {...todo, isDone: !todo.isDone };
         case SELECT_ACTION:
-
             return state.find(todo => todo.id === action.payload) ? todo : {...todo, isDone: !todo.isDone };
         case EDIT_ACTION:
             return [ ...state, { id: Date.now(), ...newTodo} ];
@@ -54,31 +54,3 @@ export default function (state = initialTodoState, action) {
             return state;
     }
 }
-
-// export default function (state = newTodo, action) {
-//     switch (action.type) {
-//         case EDIT_ACTION:
-//             return { ...state, ...action.payload };
-//         // case VISIBILITIE_ACTION:
-//         //     return {
-//         //         ...state, ...action.payload
-//         //     };    
-//         default:
-//             return state;
-//     }
-// }
-
-// export default function (state = modalVisibility, action) {
-//     switch (action.type) {
-//         case ADD_ACTION:
-//             return state = true;
-//         case SELECT_ACTION:
-//             return state = true;
-//         // case VISIBILITIE_ACTION:
-//         //     return {
-//         //         ...state, ...action.payload
-//         //     };    
-//         default:
-//             return state;
-//     }
-// }

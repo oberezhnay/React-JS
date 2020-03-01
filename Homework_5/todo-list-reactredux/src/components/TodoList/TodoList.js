@@ -18,6 +18,4 @@ function TodoList({todos, onDelete, onSelect, onToggle}) {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
-
-//добавить проптайп
+export default TodoList
