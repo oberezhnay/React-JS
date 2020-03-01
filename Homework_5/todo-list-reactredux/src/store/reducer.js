@@ -1,9 +1,12 @@
 import {
-  ADD_ACTION,
+  // ADD_ACTION,
   DELETE_ACTION,
   TOGGLE_ACTION,
   EDIT_ACTION,
+  SAVE_ACTION,
   SELECT_ACTION,
+  OPEN_MODAL_ACTION,
+  VISIBILITIE_ACTION
 } from './actions';
 
 const initialState= {
@@ -59,8 +62,6 @@ function onChangeTodo(newTodo, changes){
 
 export default function (state = initialState, action) {
   switch (action.type) {
-      case ADD_ACTION:
-          return {...state, todos: createTodo(state.todos, action.payload)};
       case DELETE_ACTION:
           return {...state, todos: state.todos.filter(todo => todo.id !== action.payload)};
       case TOGGLE_ACTION:
@@ -68,18 +69,21 @@ export default function (state = initialState, action) {
           todo.isDone =! todo.isDone;
           return  {...state, todos: updateTodo(state.todos, todo) };
       case SELECT_ACTION:
-          const todo = state.todos.find(item => item.id === action.payload);
-          // selectedTodo= onChangeTodo(todo, )
-          return {...state, modalVisibility: true };
+          const selectedTodo = state.todos.find(item => item.id === action.payload);
+          return {...state, modalVisibility: true, newTodo: selectedTodo };
       case EDIT_ACTION:
           const newTodo = onChangeTodo(state.newTodo, action.payload)
           return { ...state, todos: updateTodo(state.todos, newTodo) };
       case SAVE_ACTION:
-          if (payload.id)
-          return { ...state, todos: updateTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility};   
-          return { ...state, todos: createTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility };
+          if (action.payload.id){
+            return { ...state, todos: updateTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility}; 
+          } else 
+            return { ...state, todos: createTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility };
+      case OPEN_MODAL_ACTION:
+          return { ...state, modalVisibility: true };
       case VISIBILITIE_ACTION:
         return { ...state, modalVisibility: !state.modalVisibility };
+        
       default:
           return state;
   }

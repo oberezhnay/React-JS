@@ -1,13 +1,15 @@
 import React from 'react';
 import './TodoModal.css';
 import { connect } from 'react-redux';
+import {onNewTodoSave, onTodoUpdate, setVisibility} from '../../store/actions';
 
 function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
 
   function onValueChange(e){
-    onChange({
-      [e.target.name]: e.target.value
-    });    
+    const changes ={
+      title: e.target.value
+    };
+    onChange(changes);  
   }
 
   function onFormSubmit(e){
@@ -41,19 +43,17 @@ function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
   )
 }
 
-function mapStateToProps( { categories}, {id}){
+function mapStateToProps(state){
   return {
-    item: 
-      id !=='new' ? categories.list.find(item => item.id == id): {id: '', name: 'hello'}
+    todo: state.newTodo,
+    showModal: state.modalVisibility
   }
-}
+};
 
 const mapDispatchToProps = {
-  todo={}
   onSave: onNewTodoSave,
-  onChange: 
-  ,
-  showModal:,
-  onModal
-}
+  onChange: onTodoUpdate,
+  onModal: setVisibility
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(TodoModal)
