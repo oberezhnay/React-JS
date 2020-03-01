@@ -1,11 +1,11 @@
 import {
-  // ADD_ACTION,
   DELETE_ACTION,
   TOGGLE_ACTION,
   EDIT_ACTION,
   SAVE_ACTION,
   SELECT_ACTION,
   OPEN_MODAL_ACTION,
+  CLOSE_MODAL_ACTION,
   VISIBILITIE_ACTION
 } from './actions';
 
@@ -38,52 +38,77 @@ const initialState= {
   modalVisibility: false
 };
 
-function createTodo(todos, text){
+function createTodo(todos, todo){
+  todo.id = Date.now();
   return [
-  ...todos,
-  {
-    id: Date.now(),
-    title: text,
-    isDone: false
-  }
-]
-} 
+  ...todos, todo
+];
+}; 
 
 function updateTodo(todos, todo){
-  return todos.map(item=> item.id == todo.id ? todo:item )
-} 
-
-function onChangeTodo(newTodo, changes){
-     return {
-      ...newTodo,
-      ...changes
-  }
-}
+  return todos.map(item=> item.id === todo.id ? todo:item )
+}; 
 
 export default function (state = initialState, action) {
   switch (action.type) {
       case DELETE_ACTION:
-          return {...state, todos: state.todos.filter(todo => todo.id !== action.payload)};
+          return {
+            ...state, 
+            todos: state.todos.filter(todo => todo.id !== action.payload)
+          };
       case TOGGLE_ACTION:
-          const todo = state.todos.find(item => item.id === action.payload);
-          todo.isDone =! todo.isDone;
-          return  {...state, todos: updateTodo(state.todos, todo) };
+          return  {
+            ...state, 
+            todos: state.todos.map(item => 
+              item.id !== action.payload 
+              ? item 
+              : { ...item, isDone: !item.isDone }
+              )
+          };
       case SELECT_ACTION:
-          const selectedTodo = state.todos.find(item => item.id === action.payload);
-          return {...state, modalVisibility: true, newTodo: selectedTodo };
+          return {
+            ...state, 
+            modalVisibility: true, 
+            newTodo: { 
+              ...state.newTodo, 
+              ...state.todos.find(item => 
+                item.id === action.payload) 
+              }
+            };
       case EDIT_ACTION:
-          const newTodo = onChangeTodo(state.newTodo, action.payload)
-          return { ...state, todos: updateTodo(state.todos, newTodo) };
+          return { 
+            ...state, 
+            newTodo: { 
+              ...state.newTodo, 
+              ...action.payload 
+            }
+          };
       case SAVE_ACTION:
-          if (action.payload.id){
-            return { ...state, todos: updateTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility}; 
-          } else 
-            return { ...state, todos: createTodo(state.todos, action.payload), modalVisibility: !state.modalVisibility };
+            return { 
+              ...state, 
+              todos: action.payload.id 
+                ? updateTodo(state.todos, action.payload) 
+                : createTodo(state.todos, action.payload),
+              modalVisibility: !state.modalVisibility
+            };
       case OPEN_MODAL_ACTION:
-          return { ...state, modalVisibility: true };
+          return { 
+            ...state, 
+            newTodo: action.payload 
+              ? state.todos.find(item => item.id === action.payload)
+              : {title:'new task', isDone: false}, 
+            modalVisibility: true };
+      case CLOSE_MODAL_ACTION:
+          return { 
+            ...state, 
+            newTodo: {title:'', isDone: false}, 
+            modalVisibility: false 
+          };       
       case VISIBILITIE_ACTION:
-        return { ...state, modalVisibility: !state.modalVisibility };
-        
+        return { 
+          ...state, 
+          modalVisibility: !state.modalVisibility 
+        };
       default:
           return state;
   }

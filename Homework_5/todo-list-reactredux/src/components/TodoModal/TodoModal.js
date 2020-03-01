@@ -1,9 +1,9 @@
 import React from 'react';
 import './TodoModal.css';
 import { connect } from 'react-redux';
-import {onNewTodoSave, onTodoUpdate, setVisibility} from '../../store/actions';
+import {onNewTodoSave, onTodoUpdate, closeModal} from '../../store/actions';
 
-function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
+function TodoModal({ todo, onChange, onSave, showModal, onClose }) {
 
   function onValueChange(e){
     const changes ={
@@ -12,20 +12,10 @@ function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
     onChange(changes);  
   }
 
-  function onFormSubmit(e){
-    e.preventDefault();
-    onSave(todo)
-  }
-
-  function onFormCansel(e){
-    e.preventDefault();
-    onModal()
-  }
   return (
     <>
     {showModal ? <div><div className='form-container'></div>
-      <form 
-        onSubmit={onFormSubmit} 
+      <div 
         className='addtodo-form'>
           <h3>ToDo: </h3>
           <div>
@@ -36,9 +26,9 @@ function TodoModal({ todo, onChange, onSave, showModal, onModal }) {
               value={todo.title} 
               onChange={onValueChange}/>
           </div>
-          <button>Save</button>
-          <button onClick={onFormCansel}>Cansel</button>
-      </form></div> :''}
+          <button onClick ={()=> onSave(todo)} >Save</button>
+          <button onClick={ () => onClose() }>Cancel</button>
+      </div></div> :''}
     </>
   )
 }
@@ -53,7 +43,7 @@ function mapStateToProps(state){
 const mapDispatchToProps = {
   onSave: onNewTodoSave,
   onChange: onTodoUpdate,
-  onModal: setVisibility
+  onClose: closeModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoModal)

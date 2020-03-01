@@ -1,8 +1,3 @@
-// export const ADD_ACTION = 'ADD_TODO';
-// export function onNewTodoSave(todoTitle) {
-//     return { type: ADD_ACTION, payload: todoTitle };
-// }
-
 export const DELETE_ACTION = 'DELETE_TODO';
 export function onTodoDelete(id) {
     return { type: DELETE_ACTION, payload: id };
@@ -24,18 +19,21 @@ export function onTodoSelect(id) {
 }
 
 export const SAVE_ACTION = 'SAVE_TODO';
-export function onNewTodoSave(todo) {
-    return { type: SAVE_ACTION, payload: todo };
+export function onNewTodoSave(changes) {
+    return { type: SAVE_ACTION, payload: changes };
 }
 
 export const VISIBILITIE_ACTION = 'VISIBILITIE_MODAL';
-export function openModal(id) {
-    console.log('a')
-    return { type: VISIBILITIE_ACTION, payload: id };
+export function setVisibility() {
+    return { type: VISIBILITIE_ACTION};
 }
 
 export const OPEN_MODAL_ACTION =  'OPEN_MODAL_MODAL';
-export function setVisibility() {
-    console.log('a')
-    return { type: VISIBILITIE_ACTION };
+export function openModal(id) {
+    return { type: OPEN_MODAL_ACTION, payload: id  };
+}
+
+export const CLOSE_MODAL_ACTION =  'CLOSE_MODAL_MODAL';
+export function closeModal() {
+    return { type: CLOSE_MODAL_ACTION };
 }

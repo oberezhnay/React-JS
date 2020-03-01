@@ -10,7 +10,8 @@ li{
 }
 
 span{
-  margin-left: 20px;
+  margin-right: 20px;
+  float: right;
 }
 
 .hidden-box:checked + .check--label {

@@ -5,23 +5,17 @@ import { connect } from 'react-redux';
 import { openModal } from './store/actions'
 import './App.css'
 
-function App( onModal) {
+function App( {openModal}) {
 return <> 
           <header className='todo-header'>ToDo List</header>
-          <button className='newtodo-btn' onClick={() => onModal}>Add New ToDo</button>
+          <button className='newtodo-btn' onClick={() => openModal()}>Add New ToDo</button>
           <TodoModal />
           <TodoList />
         </>
 }
 
-function mapStateToProps(state) {
-  return {
-    modalVisibility: !state.modalVisibility
-  };
-}
-
 const mapDispatchToProps = {
-  onModal: openModal
+  openModal: openModal
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)
 
