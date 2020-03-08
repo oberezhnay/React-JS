@@ -1,4 +1,4 @@
-import {ACTION_GROUP_SAVE, ACTION_GROUP_SEARCH, ACTION_GROUP_DELETE } from '../actions/groups'
+import {ACTION_GROUP_SAVE, ACTION_GROUP_SEARCH, ACTION_GROUP_DELETE } from '../actions/groups';
 
 const initialState ={
   list: [
@@ -27,7 +27,7 @@ const initialState ={
 };
 
 function updateGroup(list, group){
-  return list.map(item=> item.id == group.id ? group: item);
+  return list.map(item=> +item.id === +group.id ? group: item);
 }
 
 function createGroup(list, group){
@@ -49,7 +49,6 @@ export default function(state = initialState, { type, payload }) {
         ...state,
         search: payload
     };
-
     case ACTION_GROUP_DELETE:
       return {
         ...state,

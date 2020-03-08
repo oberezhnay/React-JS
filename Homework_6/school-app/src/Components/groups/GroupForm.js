@@ -1,40 +1,46 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { saveGroup } from '../../store/actions/groups'
-import { useHistory } from 'react-router-dom';
+import { saveGroup } from '../../store/actions/groups';
+import { useHistory } from 'react-router';
 
 function GroupForm({ item, onSave }) {
-  const [ name, setName] = useState(item.name);
-
+  const [group, setGroup]= useState(item);
   const history = useHistory();
 
-  function onSaveClick(){
-    onSave({
-      id: item.id,
-      name
-    });
+  function onFormSubmit(e){
+    e.preventDefault();
+    onSave(group);
+    history.push('/groups');
+  }
 
-    history.goBack();
+  function onChange({target}){
+    setGroup({
+      ...group, 
+      [target.name]: target.value
+    });
   }
 
   return (
-    <div>
+    <form onSubmit={onFormSubmit}>
+      <label htmlFor='name'>Name</label>
       <input 
-        type="text" 
-        value={name}
-        onChange = {({target}) => setName(target.value)}
+        id='name'
+        name='name'
+        type='text' 
+        value={group.name}
+        onChange = {onChange}
         />
-        <button onClick = {onSaveClick}>Save</button>
-    </div>
+        <button>Save</button>
+    </form>
   );
 }
 
-function mapStateToProps( { groups}, {id}){
+function mapStateToProps( state, {id}){
   return {
     item: 
       id !=='new' 
-      ? groups.list.find(item => item.id == id)
-      : {id: '', name: 'hello'}
+        ? state.groups.list.find(item => item.id === +id)
+        : {name: ''}
   };
 }
 
@@ -42,4 +48,4 @@ const mapDispatchToProps = {
   onSave: saveGroup
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)
+export default connect(mapStateToProps, mapDispatchToProps)(GroupForm);

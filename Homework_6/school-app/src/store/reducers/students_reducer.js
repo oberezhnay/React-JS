@@ -1,50 +1,38 @@
-// const initialState ={
-//   list: [],
-//   search: ''
-// }
-
-// export default function(state = initialState, { type, payload }) {
-//   switch (type){
-//     default:
-//       return state
-//   }
-// }
-
-import {ACTION_STUDENT_SAVE, ACTION_STUDENT_SEARCH, ACTION_STUDENT_DELETE } from '../actions/students'
+import {ACTION_STUDENT_SEARCH, ACTION_STUDENT_DELETE, ACTION_STUDENT_SAVE } from '../actions/students';
 
 const initialState ={
   list: [
       {
           id: 1,
-          name: 'Geralt of Rivia',
+          name: 'Student1',
           attended_group: 5
       },
       {
           id: 2,
-          name: 'Ciri',
+          name: 'Student2',
           attended_group: 4
       },
       {
           id: 3,
-          name: 'Yennefer of Vengerberg',
+          name: 'Student3',
           attended_group: 3
       },
       {
           id: 4,
-          name: 'Dandelion',
+          name: 'Student4',
           attended_group: 2
       },
       {
           id: 5,
-          name: 'Triss Merigold',
+          name: 'Student5',
           attended_group: 1
       }
   ],
   search: ''
-};
+}
 
 function updateStudent(list, student){
-  return list.map(item=> item.id == student.id ? student: item);
+  return list.map(item=> +item.id === +student.id ? student: item);
 }
 
 function createStudent(list,student){

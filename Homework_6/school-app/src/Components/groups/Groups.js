@@ -1,27 +1,30 @@
-import React from 'react'
-import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
 import GroupsList from './GroupsList';
 import GroupForm from './GroupForm';
-import './Groups.css'
+import './Groups.css';
 
 function Groups() {
-const { path, url } = useRouteMatch();
+const { path } = useRouteMatch();
 
   return (
     <div>
-      <h2>Groups Module</h2>
-      <Link to={`${url}/new`} className = 'add-btn'>Add new group</Link>
+      <h2>Groups</h2>
       <Switch>
-        <Route exect path={`${path}/`}>
+        <Route path={`${path}/`} exact>
           <GroupsList />
         </Route>
-        <Route path={`${path}/:id`} render = { route => {
-          return <GroupForm id={route.match.params.id} />;
-          }}
+        <Route path={`${path}/:id`} 
+          render = { route => (
+            <GroupForm id={route.match.params.id} />
+          )}
         ></Route>
+        <Route path={`${path}/*`}>
+          <Redirect to={`${path}/`} />
+        </Route>
       </Switch>
     </div>
-  )
+  );
 }
 
-export default Groups
+export default Groups;

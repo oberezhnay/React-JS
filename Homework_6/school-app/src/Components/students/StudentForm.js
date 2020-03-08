@@ -1,45 +1,69 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { saveStudent } from '../../store/actions/students'
-import { useHistory } from 'react-router-dom';
+import { onSaveStudent } from '../../store/actions/students';
+import { useHistory } from 'react-router';
 
-function StudentForm({ item, onSave }) {
-  const [ name, setName] = useState(item.name);
-
+function StudentForm({ item, groups, onSave }) {
+  const [ student, setStudent] = useState(item);
   const history = useHistory();
 
-  function onSaveClick(){
-    onSave({
-      id: item.id,
-      name
-    });
+  function onFormSubmit(e){
+    e.preventDefault();
+    onSave(student);
+    history.push('/students');
+  }
 
-    history.goBack();
+  function onChange({target}){
+    setStudent({
+      ...student, 
+      [target.name]: target.value
+    });
   }
 
   return (
-    <div>
+    <form onSubmit={onFormSubmit}>
+      <label htmlFor='name'>Name</label>
       <input 
-        type="text" 
-        value={name}
-        onChange = {({target}) => setName(target.value)}
+        id='name'
+        name='name'
+        type='text' 
+        value={student.name}
+        onChange = {onChange}
         />
-        <button onClick = {onSaveClick}>Save</button>
-    </div>
+
+        <label htmlFor='attended_group'>Group</label>
+        <select 
+        id='attended_group'
+        name='attended_group'
+        type="text" 
+        value={student.attended_group}
+        onChange = {onChange}
+        >
+          {groups.map(group => (
+          <option 
+            key={group.id} 
+            value={group.id}>
+              {group.name}
+          </option>
+           ))}
+        </select>
+        <button>Save</button>
+    </form>
   );
 }
 
-function mapStateToProps( { students }, {id}){
+function mapStateToProps( state, {id}){
   return {
     item: 
       id !=='new' 
-      ? students.list.find(item => item.id == id)
-      : {id: '', name: 'hello'}
+        ? state.students.list.find(item => item.id === +id)
+        : {name: '', attended_group: ''},
+    groups: state.groups.list
   };
 }
 
 const mapDispatchToProps = {
-  onSave: saveStudent
+  onSave: onSaveStudent
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);
