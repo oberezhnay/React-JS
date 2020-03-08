@@ -9,7 +9,6 @@
 .group-item-link{
   text-decoration: none;
   font-size: 1.1em;
-  
 }
 
 .add-btn{
@@ -19,4 +18,8 @@
   padding: 2px 20px;
   border-radius: 6px;
   height: 25px;
+}
+
+.del-btn{
+  margin-right: 15%;
 }

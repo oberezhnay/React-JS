@@ -22,7 +22,11 @@ function StudentsList( {list, search, onSearch, groupsList, onDelete} ) {
           <li key={item.id} className='group-item'>
             <Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name } </Link>
             <span>{getGroupName(item.attended_group, groupsList)}</span>
-            <span onClick={ e => e.stopPropagation() || onDelete(item.id)}>	&#128465;</span>
+            <span 
+              onClick={ e => e.stopPropagation() || onDelete(item.id)}
+              className='del-btn'>	
+                &#128465;
+              </span>
           </li>
         ))}
       </ul>

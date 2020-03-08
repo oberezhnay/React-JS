@@ -21,7 +21,11 @@ function GroupsList( {list, search, onSearch, onDelete, studentsList, deleteGrou
         {list.map(item => (
           <li key={item.id} className='group-item'>
             <Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link>
-            <span onClick={ e => e.stopPropagation() || (onDelete(item.id) && deleteGroupStudents(getIdStudent(item.id, studentsList)))}>	&#128465;</span>
+            <span 
+              onClick={ e => e.stopPropagation() || (onDelete(item.id) && deleteGroupStudents(getIdStudent(item.id, studentsList)))}
+              className='del-btn'>
+                &#128465;
+              </span>
           </li>
         ))}
       </ul>
