@@ -8,7 +8,7 @@ function Students() {
 const { path } = useRouteMatch();
 
   return (
-    <div>
+    <div className='container'>
       <h2>Students</h2>
       <Switch>
         <Route path={`${path}/`} exact>

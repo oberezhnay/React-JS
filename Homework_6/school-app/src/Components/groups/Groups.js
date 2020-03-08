@@ -8,7 +8,7 @@ function Groups() {
 const { path } = useRouteMatch();
 
   return (
-    <div>
+    <div className='container'>
       <h2>Groups</h2>
       <Switch>
         <Route path={`${path}/`} exact>

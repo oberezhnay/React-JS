@@ -10,6 +10,12 @@ function GroupsList( {list, search, onSearch, onDelete, studentsList, deleteGrou
   const { url } = useRouteMatch();
   const history = useHistory();
 
+  function deleteStudents(groupId){
+    studentsList.forEach(student => {
+      if(+student.attended_group === +groupId)
+      deleteGroupStudents(student.id)
+  } )};
+
   return (
     <div>
         <input 
@@ -21,8 +27,7 @@ function GroupsList( {list, search, onSearch, onDelete, studentsList, deleteGrou
         {list.map(item => (
           <li key={item.id} className='group-item'>
             <Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link>
-            <span 
-              onClick={ e => e.stopPropagation() || (onDelete(item.id) && deleteGroupStudents(getIdStudent(item.id, studentsList)))}
+            <span onClick={ () => { onDelete(item.id); deleteStudents(item.id)}}
               className='del-btn'>
                 &#128465;
               </span>
@@ -32,11 +37,6 @@ function GroupsList( {list, search, onSearch, onDelete, studentsList, deleteGrou
       <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add group</button>
     </div>
   );
-}
-
-function getIdStudent(groupId, studentsList){
-  const groupStudent = studentsList.find(student => +student.attended_group === +groupId);
-  return groupStudent.id
 }
 
 function mapStateToProps({groups, students }){
