@@ -19,11 +19,7 @@ function  Waitstaff({ isLoading, getWaitstaff }) {
         { isLoading ? 'LOADING':
         <Switch>
           <Route path={`${path}/`} exact>
-            <table>
-              <tbody>
-                <WaitstaffList />
-              </tbody>
-            </table>
+            <WaitstaffList />
           </Route>
           <Route path={`${path}/:id`} 
             render = { route => (

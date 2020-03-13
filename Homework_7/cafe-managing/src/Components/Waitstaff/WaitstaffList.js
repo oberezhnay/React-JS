@@ -15,25 +15,29 @@ function WaitstaffList( {list, search, onSearch, onDelete }) {
     return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`
   }
   return (
-    <div>
+    <>
         <input 
           type="text" 
           value={search} 
           placeholder="Search..."
           onChange={({target}) => onSearch(target.value)} />
         <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add waiter</button>
+        <table>
+          <tbody>
         {list.map(item => (
           <tr key={item.id} className='group-item'>
             <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
-            <td>{ item.salary }</td> 
+            <td>{ item.salary } $</td> 
             <td>{ getDate(item.startDate) }</td>
             <td onClick={ () => { onDelete(item.id)}}
               className='del-btn'>
                 &#128465;
             </td>
-          </tr>
-        ))}
-    </div>
+          </tr> 
+          ))}
+          </tbody>
+        </table>
+    </>
   );
 }
 

@@ -19,11 +19,7 @@ function Tables({ isLoading, getTables }) {
         { isLoading ? 'LOADING':
         <Switch>
           <Route path={`${path}/`} exact>
-          <table>
-            <tbody>
-              <TablesList />
-            </tbody>
-          </table>  
+            <TablesList />
           </Route>
           <Route path={`${path}/:id`} 
             render = { route => (

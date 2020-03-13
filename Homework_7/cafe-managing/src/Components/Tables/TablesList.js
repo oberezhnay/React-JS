@@ -12,13 +12,15 @@ function TablesList( {list, search, onSearch, onDelete }) {
 
   
   return (
-    <div>
+    <>
         <input 
           type="text" 
           value={search} 
           placeholder="Search..."
           onChange={({target}) => onSearch(target.value)} />
       <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add table</button>
+      <table>
+        <tbody>
         {list.map(item => (
           <tr key={item.id} className='group-item'>
             <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
@@ -30,8 +32,9 @@ function TablesList( {list, search, onSearch, onDelete }) {
               </td>
           </tr>
         ))}
-      <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add table</button>
-    </div>
+        </tbody>
+      </table>
+    </>
   );
 }
 
