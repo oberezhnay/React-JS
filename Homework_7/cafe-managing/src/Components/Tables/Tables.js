@@ -4,7 +4,6 @@ import TablesList from './TablesList';
 import TableForm from './TableForm';
 import { getTables } from '../../store/actions/tables'
 import { connect } from 'react-redux';
-// import api from '../../services/api'
 import './Tables.css';
 
 function Tables({ isLoading, getTables }) {
@@ -20,7 +19,11 @@ function Tables({ isLoading, getTables }) {
         { isLoading ? 'LOADING':
         <Switch>
           <Route path={`${path}/`} exact>
-            <TablesList />
+          <table>
+            <tbody>
+              <TablesList />
+            </tbody>
+          </table>  
           </Route>
           <Route path={`${path}/:id`} 
             render = { route => (

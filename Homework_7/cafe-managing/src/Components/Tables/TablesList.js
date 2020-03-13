@@ -4,19 +4,13 @@ import { useRouteMatch, Link, useHistory } from 'react-router-dom';
 import {createSelector} from 'reselect';
 import { searchTable } from '../../store/actions/tables';
 import { onDelete } from '../../store/actions/tables';
-// import {onDeleteStudent} from '../../store/actions/students';
 import './TablesList.css';
 
 function TablesList( {list, search, onSearch, onDelete }) {
   const { url } = useRouteMatch();
   const history = useHistory();
 
-  // function deleteStudents(groupId){
-  //   studentsList.forEach(student => {
-  //     if(+student.attended_group === +groupId)
-  //     deleteGroupStudents(student.id)
-  // } )};
-
+  
   return (
     <div>
         <input 
@@ -24,18 +18,18 @@ function TablesList( {list, search, onSearch, onDelete }) {
           value={search} 
           placeholder="Search..."
           onChange={({target}) => onSearch(target.value)} />
-      <ul>
+      <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add table</button>
         {list.map(item => (
-          <li key={item.id} className='group-item'>
-            <Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link>
-            { item.description } { item.sitsCount }
-            <span onClick={ () => { onDelete(item.id)}}
+          <tr key={item.id} className='group-item'>
+            <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
+            <td>{ item.description }</td> 
+            <td>{ item.sitsCount }</td>
+            <td onClick={ () => { onDelete(item.id)}}
               className='del-btn'>
                 &#128465;
-              </span>
-          </li>
+              </td>
+          </tr>
         ))}
-      </ul>
       <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add table</button>
     </div>
   );
@@ -55,15 +49,11 @@ const getFilteredTables = createSelector(
   }
 );
 
-const getTablesCount = createSelector([getFilteredTables],  // не обязательно, пример
-  list => console.log(list.length));
 
 function mapStateToProps(state){
   return {
     list:  getFilteredTables(state),
-    tablesCount: getTablesCount(state),  // не обязательно, пример
-    search: state.tables.search,
-    // studentsList: state.students.list
+    search: state.tables.search
   };
 }
 
@@ -71,7 +61,6 @@ function mapStateToProps(state){
 const mapDispatchToProps = {
   onSearch: searchTable,
   onDelete: onDelete,
-  // deleteGroupStudents: onDeleteStudent
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TablesList);

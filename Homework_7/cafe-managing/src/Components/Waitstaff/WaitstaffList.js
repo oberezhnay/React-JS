@@ -10,6 +10,10 @@ function WaitstaffList( {list, search, onSearch, onDelete }) {
   const { url } = useRouteMatch();
   const history = useHistory();
 
+  function getDate(startDate){
+    let date = new Date(startDate);
+    return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`
+  }
   return (
     <div>
         <input 
@@ -17,19 +21,18 @@ function WaitstaffList( {list, search, onSearch, onDelete }) {
           value={search} 
           placeholder="Search..."
           onChange={({target}) => onSearch(target.value)} />
-      <ul>
+        <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add waiter</button>
         {list.map(item => (
-          <li key={item.id} className='group-item'>
-            <Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link>
-            <span>{ item.salary }</span> <span>{ item.startDate }</span>
-            <span onClick={ () => { onDelete(item.id)}}
+          <tr key={item.id} className='group-item'>
+            <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
+            <td>{ item.salary }</td> 
+            <td>{ getDate(item.startDate) }</td>
+            <td onClick={ () => { onDelete(item.id)}}
               className='del-btn'>
                 &#128465;
-              </span>
-          </li>
+            </td>
+          </tr>
         ))}
-      </ul>
-      <button className ='add-btn' onClick={()=>history.push(`${url}/new`)}>Add waiter</button>
     </div>
   );
 }

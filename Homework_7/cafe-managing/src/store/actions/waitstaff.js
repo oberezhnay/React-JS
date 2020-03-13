@@ -45,7 +45,7 @@ export function getWaitstaff() {
   return function(dispatch) {
   dispatch(setWaitstaffLoading(true));
 
-  api.get('waiters').then( resp => {
+  api.get('waitstaff').then( resp => {
      dispatch(setWaitstaff(resp.data));
      dispatch(setWaitstaffLoading(false));
   }); 

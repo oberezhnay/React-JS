@@ -4,7 +4,6 @@ import WaitstaffList from './WaitstaffList';
 import  WaitstaffForm from './WaitstaffForm';
 import { getWaitstaff } from '../../store/actions/waitstaff'
 import { connect } from 'react-redux';
-// import api from '../../services/api'
 import '../Tables/Tables.css';
 
 function  Waitstaff({ isLoading, getWaitstaff }) {
@@ -20,7 +19,11 @@ function  Waitstaff({ isLoading, getWaitstaff }) {
         { isLoading ? 'LOADING':
         <Switch>
           <Route path={`${path}/`} exact>
-            <WaitstaffList />
+            <table>
+              <tbody>
+                <WaitstaffList />
+              </tbody>
+            </table>
           </Route>
           <Route path={`${path}/:id`} 
             render = { route => (

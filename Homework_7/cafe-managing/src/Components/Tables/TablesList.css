@@ -18,8 +18,17 @@
   padding: 2px 20px;
   border-radius: 6px;
   height: 25px;
+  margin-left: 50px;;
 }
 
 .del-btn{
   margin-right: 15%;
+}
+td{
+  width: 25%;
+  text-align: center;
+}
+
+.t-body{
+  width: 100%;
 }
