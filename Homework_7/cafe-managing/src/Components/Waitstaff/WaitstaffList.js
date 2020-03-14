@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { useRouteMatch, Link, useHistory } from 'react-router-dom';
 import {createSelector} from 'reselect';
 import { searchWaitstaff } from '../../store/actions/waitstaff';
-import { onDelete } from '../../store/actions/waitstaff';
+import { deleteWaitstaff } from '../../store/actions/waitstaff';
 import '../Tables/TablesList.css';
 
-function WaitstaffList( {list, search, onSearch, onDelete }) {
+function WaitstaffList( {list, search, onSearch, deleteWaitstaff }) {
   const { url } = useRouteMatch();
   const history = useHistory();
 
@@ -29,7 +29,7 @@ function WaitstaffList( {list, search, onSearch, onDelete }) {
             <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
             <td>{ item.salary } $</td> 
             <td>{ getDate(item.startDate) }</td>
-            <td onClick={ () => { onDelete(item.id)}}
+            <td onClick={ () => { deleteWaitstaff(item.id)}}
               className='del-btn'>
                 &#128465;
             </td>
@@ -65,7 +65,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {
   onSearch: searchWaitstaff,
-  onDelete: onDelete
+  deleteWaitstaff: deleteWaitstaff
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitstaffList);

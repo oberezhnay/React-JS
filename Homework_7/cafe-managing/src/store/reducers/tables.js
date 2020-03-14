@@ -1,4 +1,4 @@
-import {ACTION_TABLE_SAVE, ACTION_TABLE_SEARCH, ACTION_TABLE_DELETE, SET_TABLES_LOADIND_ACTION, SET_TABLES_ACTION } from '../actions/tables';
+import {ACTION_TABLE_SAVE, ACTION_TABLE_CREATE, ACTION_TABLE_SEARCH, ACTION_TABLE_DELETE, SET_TABLES_LOADIND_ACTION, SET_TABLES_ACTION } from '../actions/tables';
 
 const initialState = {
   list: [],
@@ -30,9 +30,12 @@ export default function(state = initialState, { type, payload }) {
     case ACTION_TABLE_SAVE: 
     return {
       ...state,
-      list: payload.id 
-        ? updateTable(state.list, payload) 
-        : createTable(state.list, payload)
+      list: updateTable(state.list, payload) 
+    };
+    case ACTION_TABLE_CREATE: 
+    return {
+      ...state,
+      list: createTable(state.list, payload)
     };
     case ACTION_TABLE_SEARCH:
       return {

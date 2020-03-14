@@ -8,6 +8,14 @@ export function saveTable(table) {
   };
 }
 
+export const ACTION_TABLE_CREATE = 'ACTION_TABLE_CREATE';
+export function createTable(table) {
+  return {
+    type: ACTION_TABLE_CREATE,
+    payload: table
+  };
+}
+
 export const ACTION_TABLE_SEARCH = 'ACTION_TABLE_SEARCH';
 export function searchTable(query) {
   return {
@@ -49,6 +57,32 @@ export function getTables() {
      dispatch(setTables(resp.data));
      dispatch(setTablesLoading(false));
   }); 
-    console.log('thunk')
+  }
+}
+
+export const SAVE_TABLES_ACTION = 'SAVE_TABLES_ACTION'; 
+export function saveTables(table) {
+  return function(dispatch) {
+  if (table.id) {
+  api.put(`tables/${table.id}`, table).then( resp => {
+     dispatch(saveTable(resp.data));
+  })}
+  else {
+  api.post(`tables`, table).then( resp => {
+       dispatch(createTable(resp.data));
+  })}
+  dispatch(getTables());
+  }
+}
+
+export const DELETE_TABLES_ACTION = 'DELETE_TABLES_ACTION'; 
+export function deleteTables(tableId) {
+  return function(dispatch) {
+  //  debugger
+  api.delete(`tables/${tableId}`).then( resp => {
+    console.log(resp)
+     dispatch(onDelete(resp.data.id));
+  }); 
+  dispatch(getTables());
   }
 }

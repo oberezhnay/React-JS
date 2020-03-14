@@ -1,9 +1,17 @@
 import api from '../../services/api'
 
 export const ACTION_WAITSTAFF_SAVE = 'ACTION_WAITSTAFF_SAVE';
-export function saveWaitstaff(waitstaff) {
+export function saveWaiter(waitstaff) {
   return {
     type: ACTION_WAITSTAFF_SAVE,
+    payload: waitstaff
+  };
+}
+
+export const ACTION_WAITSTAFF_CREATE = 'ACTION_WAITSTAFF_CREATE';
+export function createWaiter(waitstaff) {
+  return {
+    type: ACTION_WAITSTAFF_CREATE,
     payload: waitstaff
   };
 }
@@ -50,5 +58,30 @@ export function getWaitstaff() {
      dispatch(setWaitstaffLoading(false));
   }); 
     console.log('thunk')
+  }
+}
+
+export const SAVE_WAITSTAFF_ACTION = 'SAVE_WAITSTAFF_ACTION'; 
+export function saveWaitstaff(waitstaff) {
+  return function(dispatch) {
+  if (waitstaff.id) {
+  api.put(`waitstaff/${waitstaff.id}`, waitstaff).then( resp => {
+     dispatch(saveWaiter(resp.data));
+  })}
+  else {
+  api.post(`waitstaff`, waitstaff).then( resp => {
+       dispatch(createWaiter(resp.data));
+  })}
+  dispatch(getWaitstaff());
+  }
+}
+
+export const DELETE_WAITSTAFF_ACTION = 'DELETE_WAITSTAFF_ACTION'; 
+export function deleteWaitstaff(waitstaffId) {
+  return function(dispatch) {
+  api.delete(`waitstaff/${waitstaffId}`).then( resp => {
+     dispatch(onDelete(resp.data.id));
+  }); 
+  dispatch(getWaitstaff());
   }
 }

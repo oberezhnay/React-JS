@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { useRouteMatch, Link, useHistory } from 'react-router-dom';
 import {createSelector} from 'reselect';
 import { searchTable } from '../../store/actions/tables';
-import { onDelete } from '../../store/actions/tables';
+import { deleteTables } from '../../store/actions/tables';
 import './TablesList.css';
 
-function TablesList( {list, search, onSearch, onDelete }) {
+function TablesList( {list, search, onSearch, deleteTables }) {
   const { url } = useRouteMatch();
   const history = useHistory();
 
@@ -26,7 +26,7 @@ function TablesList( {list, search, onSearch, onDelete }) {
             <td><Link to = {`${url}/${item.id}`} className='group-item-link'>{ item.name }</Link></td>
             <td>{ item.description }</td> 
             <td>{ item.sitsCount }</td>
-            <td onClick={ () => { onDelete(item.id)}}
+            <td onClick={ () => { deleteTables(item.id)}}
               className='del-btn'>
                 &#128465;
               </td>
@@ -63,7 +63,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {
   onSearch: searchTable,
-  onDelete: onDelete,
+  deleteTables: deleteTables,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TablesList);

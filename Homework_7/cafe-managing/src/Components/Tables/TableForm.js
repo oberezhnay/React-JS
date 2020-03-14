@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { saveTable } from '../../store/actions/tables';
+import { saveTables } from '../../store/actions/tables';
 import { useHistory } from 'react-router';
 
-function TableForm({ item, onSave }) {
+function TableForm({ item, saveTables }) {
   const [table, setTable]= useState(item);
   const history = useHistory();
 
   function onFormSubmit(e){
     e.preventDefault();
-    onSave(table);
+    saveTables(table);
     history.push('/tables');
   }
 
@@ -62,7 +62,7 @@ function mapStateToProps( state, {id}){
 }
 
 const mapDispatchToProps = {
-  onSave: saveTable
+  saveTables: saveTables
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableForm);

@@ -1,4 +1,4 @@
-import {ACTION_WAITSTAFF_SAVE, ACTION_WAITSTAFF_SEARCH, ACTION_WAITSTAFF_DELETE, SET_WAITSTAFF_LOADIND_ACTION, SET_WAITSTAFF_ACTION } from '../actions/waitstaff';
+import {ACTION_WAITSTAFF_SAVE, ACTION_WAITSTAFF_CREATE, ACTION_WAITSTAFF_SEARCH, ACTION_WAITSTAFF_DELETE, SET_WAITSTAFF_LOADIND_ACTION, SET_WAITSTAFF_ACTION } from '../actions/waitstaff';
 
 const initialState = {
   list: [],
@@ -30,9 +30,12 @@ export default function(state = initialState, { type, payload }) {
     case ACTION_WAITSTAFF_SAVE: 
     return {
       ...state,
-      list: payload.id 
-        ? updateWaitstaff(state.list, payload) 
-        : createWaitstaff(state.list, payload)
+      list: updateWaitstaff(state.list, payload)
+    };
+    case ACTION_WAITSTAFF_CREATE: 
+    return {
+      ...state,
+      list: createWaitstaff(state.list, payload)
     };
     case ACTION_WAITSTAFF_SEARCH:
       return {
