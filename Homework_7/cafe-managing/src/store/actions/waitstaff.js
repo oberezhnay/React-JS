@@ -72,7 +72,6 @@ export function saveWaitstaff(waitstaff) {
   api.post(`waitstaff`, waitstaff).then( resp => {
        dispatch(createWaiter(resp.data));
   })}
-  dispatch(getWaitstaff());
   }
 }
 
@@ -81,7 +80,6 @@ export function deleteWaitstaff(waitstaffId) {
   return function(dispatch) {
   api.delete(`waitstaff/${waitstaffId}`).then( resp => {
      dispatch(onDelete(resp.data.id));
-  }); 
-  dispatch(getWaitstaff());
+  });
   }
 }

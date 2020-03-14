@@ -71,18 +71,14 @@ export function saveTables(table) {
   api.post(`tables`, table).then( resp => {
        dispatch(createTable(resp.data));
   })}
-  dispatch(getTables());
   }
 }
 
 export const DELETE_TABLES_ACTION = 'DELETE_TABLES_ACTION'; 
 export function deleteTables(tableId) {
   return function(dispatch) {
-  //  debugger
   api.delete(`tables/${tableId}`).then( resp => {
-    console.log(resp)
      dispatch(onDelete(resp.data.id));
   }); 
-  dispatch(getTables());
   }
 }
