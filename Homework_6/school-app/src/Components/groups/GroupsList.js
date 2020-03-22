@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useRouteMatch, Link, useHistory } from 'react-router-dom';
+import {createSelector} from 'reselect';
 import { searchGroup } from '../../store/actions/groups';
 import { onDelete } from '../../store/actions/groups';
 import {onDeleteStudent} from '../../store/actions/students';
@@ -39,14 +40,31 @@ function GroupsList( {list, search, onSearch, onDelete, studentsList, deleteGrou
   );
 }
 
-function mapStateToProps({groups, students }){
-  return {
-    list:  groups.list.filter(item => 
+const listSelector = (state) => state.groups.list;
+const searchSelector = (state) => state.groups.search;
 
-      item.name.toUpperCase().includes(groups.search.toUpperCase())
-      ),
-    search: groups.search,
-    studentsList: students.list
+const getFilteredGroups = createSelector(
+  [listSelector, searchSelector],
+  (list, search) => {
+    const searchRegExp = new RegExp(search, 'gi')
+    return search
+      ? list.filter(item => item.name.match(searchRegExp)) 
+      :list;
+    // return search? list.filter(item => 
+    // item.name.toUpperCase().includes(search.toUpperCase())
+    // ) :list
+  }
+);
+
+const getGroupsCount = createSelector([getFilteredGroups],  // не обязательно, пример
+  list => console.log(list.length));
+
+function mapStateToProps(state){
+  return {
+    list:  getFilteredGroups(state),
+    groupsCount: getGroupsCount(state),  // не обязательно, пример
+    search: state.groups.search,
+    studentsList: state.students.list
   };
 }
 

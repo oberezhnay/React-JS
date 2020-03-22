@@ -1,12 +1,14 @@
 {
-  "name": "new-app",
+  "name": "cafe-managing",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.7",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.1",
+    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "formik": "^2.1.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
